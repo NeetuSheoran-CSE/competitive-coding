@@ -48,9 +48,44 @@ else:
 # n/2 is very small compared to n^2 so we ignore it and also 
 # ignore the constant 1/2
 
-#sc --
+#list =|7|9|1|3|2|5|6| 
+# 1. append one element in last--> this is not depend on the size
+#      1 element  directly add to the last O(1)
+# 2. copy the above list --> list2=list.copy()
+#      O(n) its depend on the length of the list
+# 3. pop last element -->it not depend on the length of the list 
+#    O(n)
+# 4. pop intermediate[2]--> jub 2th element ko remove kare 
+#    ga tb next elements aage shift hote jayege O(n)
+# 5. insert--> O(n)  logic like pop intermediate 
+# 6. get item-->O(1)
+# 7. set item--> O(1)
+# 8. delete item--> O(n) shifting hogi
+# 9. iteration-->O(n) depend on list length
+# 10. get slice--> slice like lst[2:5] slice kiye part ko k let 
+# karlo O(k)
+# 11. extend[1]-->O(k)
+# 12. sort-->O(nlogn)
 
+#****************************************************
+# extration of digits 
+# -count digits
+# -reverse a number
+# -check palinfrome
+# - armstrong number
 
+# n=5873
+# while num > o:
+#     last_digit = num%10
+#     print(last_digit)
+#     num=num//10
 
+#how many integers in given value -- n=5873
+# num = n 
+# count = 0
+# while num>0:
+#     count +=1
+#     num=num//10
+#return count 
 
 
