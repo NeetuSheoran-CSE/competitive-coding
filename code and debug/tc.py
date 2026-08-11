@@ -89,3 +89,35 @@ else:
 #return count 
 
 
+
+# check palindrome number
+#example -- 12321, nitin, abcdcba
+
+n = 1234
+num = n 
+result = 0
+while num>0:
+    id = num%10
+    result = (result*10)+id
+    num=num//10
+
+return n==result      #tc -- O(log n)  log base 10
+
+
+# armstrong number
+# 153 = 1^3 + 5^3 + 3^3
+#       3+125+27=153
+
+# 1634 = 1^4 + 6^4 + 3^4 + 4^4
+#        4 + 1296 + 81 + 256 = 1637
+
+n=153
+nod = len(str(n))
+total = 0
+
+
+
+
+
+
+
