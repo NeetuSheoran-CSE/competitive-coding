@@ -216,3 +216,31 @@ def search_insert(arr, target):
 
 print(search_insert([1, 3, 5, 6], 5))  # Output: 2 (found)
 print(search_insert([1, 3, 5, 6], 2))  # Output: 1 (ins
+
+
+
+
+# 15. Binary Search on a 2D Sorted Matrix
+
+# Given a matrix where each row is sorted left-to-right and each column is sorted top-to-bottom, search for a target value efficiently (better than checking every cell).
+
+# python
+def search_matrix(matrix, target):
+    if not matrix or not matrix[0]:
+        return False
+    row, col = 0, len(matrix[0]) - 1  # start top-right corner
+    while row < len(matrix) and col >= 0:
+        if matrix[row][col] == target:
+            return True
+        elif matrix[row][col] > target:
+            col -= 1  # eliminate this column
+        else:
+            row += 1  # eliminate this row
+    return False
+
+matrix = [
+    [1, 4, 7, 11],
+    [2, 5, 8, 12],
+    [3, 6, 9, 16]
+]
+print(search_matrix(matrix, 5))  # Output: True
