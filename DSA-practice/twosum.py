@@ -138,11 +138,11 @@ print(find_fixed_point([-10, -5, 0, 3, 7]))  # Output: 3 (arr[3] == 3)
 
 
 
-20. Search a Target in a Sorted Array of Unknown Order (Ascending or Descending)
+# 20. Search a Target in a Sorted Array of Unknown Order (Ascending or Descending)
 
-Given a sorted array that could be either ascending or descending (you don't know which), find the target using binary search.
+# Given a sorted array that could be either ascending or descending (you don't know which), find the target using binary search.
 
-python
+# python
 def search_unknown_order(arr, target):
     low, high = 0, len(arr) - 1
     ascending = arr[low] <= arr[high]  # detect the order first
