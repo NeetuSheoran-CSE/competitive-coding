@@ -277,3 +277,132 @@ def find_closest(arr, target):
         return arr[high]
 
 print(find_closest([1, 3, 8, 10, 15], 12))  # Output: 10
+
+
+# 26. Search in a Nearly Sorted Array
+
+# Given an array where each element is at most k positions away from its sorted position (nearly sorted), find the target efficiently.
+
+# python
+def search_nearly_sorted(arr, target):
+    low, high = 0, len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target:
+            return mid
+        # check neighbors around mid since it's "nearly" sorted
+        if mid - 1 >= low and arr[mid - 1] == target:
+            return mid - 1
+        if mid + 1 <= high and arr[mid + 1] == target:
+            return mid + 1
+        if arr[mid] < target:
+            low = mid + 2
+        else:
+            high = mid - 2
+    return -1
+
+print(search_nearly_sorted([2, 1, 3, 5, 4, 7, 6], 4))  # Output: 4
+
+
+
+
+# 27. Count Rotations in a Rotated Sorted Array
+
+# Given a sorted array rotated an unknown number of times, find how many times it was rotated (equivalent to finding the index of the minimum element).
+
+# python
+def count_rotations(arr):
+    low, high = 0, len(arr) - 1
+    while low < high:
+        mid = (low + high) // 2
+        if arr[mid] > arr[high]:
+            low = mid + 1
+        else:
+            high = mid
+    return low  # index of minimum = number of rotations
+
+print(count_rotations([15, 18, 2, 3, 6, 12]))  # Output: 2
+
+
+
+
+# 28. Find the Single Non-Duplicate Element
+
+# Given a sorted array where every element appears exactly twice except one (which appears once), find that single element in O(log n) time.
+
+# python
+def single_non_duplicate(arr):
+    low, high = 0, len(arr) - 1
+    while low < high:
+        mid = (low + high) // 2
+        if mid % 2 == 1:
+            mid -= 1  # ensure mid is even for pairing logic
+        if arr[mid] == arr[mid + 1]:
+            low = mid + 2  # pair is intact, single element is to the right
+        else:
+            high = mid  # pair is broken, single element is at mid or left
+    return arr[low]
+
+print(single_non_duplicate([1, 1, 2, 2, 3, 3, 4, 8, 8]))  # Output: 4
+
+
+
+# 29. Aggressive Cows Problem (Binary Search on Answer)
+
+# Given n stall positions and c cows, place the cows in stalls to maximize the minimum distance between any two cows. Use binary search on the answer.
+
+# python
+def aggressive_cows(stalls, cows):
+    stalls.sort()
+
+    def can_place(min_dist):
+        count = 1
+        last_position = stalls[0]
+        for i in range(1, len(stalls)):
+            if stalls[i] - last_position >= min_dist:
+                count += 1
+                last_position = stalls[i]
+        return count >= cows
+
+    low, high = 1, stalls[-1] - stalls[0]
+    result = 0
+    while low <= high:
+        mid = (low + high) // 2
+        if can_place(mid):
+            result = mid  # mid distance works, try for a bigger one
+            low = mid + 1
+        else:
+            high = mid - 1
+    return result
+
+print(aggressive_cows([1, 2, 4, 8, 9], 3))  # Output: 3
+
+
+
+# 30. Find Position of an Element in an Infinite Sorted Array of 0s and 1s
+
+# Given an infinite (or very large) sorted binary array (0s followed by 1s), find the index of the first 1.
+
+# python
+def find_first_one(arr):
+    # exponential search to find range
+    low = 0
+    high = 1
+    while high < len(arr) and arr[high] == 0:
+        low = high
+        high *= 2
+    high = min(high, len(arr) - 1)
+
+    # binary search within [low, high] for first occurrence of 1
+    result = -1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == 1:
+            result = mid
+            high = mid - 1  # keep searching left for an earlier 1
+        else:
+            low = mid + 1
+    return result
+
+arr = [0, 0, 0, 0, 0, 1, 1, 1]
+print(find_first_one(arr))  # Output: 5
