@@ -406,3 +406,136 @@ def find_first_one(arr):
 
 arr = [0, 0, 0, 0, 0, 1, 1, 1]
 print(find_first_one(arr))  # Output: 5
+
+
+
+
+# Find the Only Repeating Element in a Range
+
+# Given an array of size n+1 containing integers from 1 to n with exactly one number repeated (possibly multiple times), find that repeated number using binary search.
+
+
+def find_repeating(arr):
+    low, high = 1, len(arr) - 1
+    while low < high:
+        mid = (low + high) // 2
+        count = sum(1 for num in arr if low <= num <= mid)
+        if count > (mid - low + 1):
+            high = mid  # repeated number is in [low, mid]
+        else:
+            low = mid + 1
+    return low
+
+print(find_repeating([1, 3, 4, 2, 2]))  # Output: 2
+
+
+
+# 32. Capacity to Ship Packages Within D Days
+
+# Given package weights and a number of days D, find the minimum ship capacity needed to ship all packages within D days (packages shipped in order, one day's load can't exceed capacity).
+
+def ship_within_days(weights, days):
+    def days_needed(capacity):
+        total, count = 0, 1
+        for w in weights:
+            if total + w > capacity:
+                count += 1
+                total = w
+            else:
+                total += w
+        return count
+
+    low, high = max(weights), sum(weights)
+    while low < high:
+        mid = (low + high) // 2
+        if days_needed(mid) <= days:
+            high = mid  # capacity works, try smaller
+        else:
+            low = mid + 1
+    return low
+
+print(ship_within_days([1,2,3,4,5,6,7,8,9,10], 5))  # Output: 15
+
+
+
+
+# 33. Find the Element That Appears Once (Unsorted, Using Sort + Search)
+
+# Given an unsorted array where every element appears twice except one, sort it first, then use the pairing trick from Q28 to find the single element in O(n log n).
+
+def single_element_unsorted(arr):
+    arr.sort()
+    low, high = 0, len(arr) - 1
+    while low < high:
+        mid = (low + high) // 2
+        if mid % 2 == 1:
+            mid -= 1
+        if arr[mid] == arr[mid + 1]:
+            low = mid + 2
+        else:
+            high = mid
+    return arr[low]
+
+print(single_element_unsorted([4, 1, 2, 1, 2]))  # Output: 4
+
+
+# 34. Binary Search to Find Row with Maximum 1s (Sorted Binary Matrix)
+
+# Given a matrix where each row is sorted (0s then 1s), find the row with the maximum number of 1s, in better than O(rows × cols).
+
+def row_with_max_ones(matrix):
+    def first_one_index(row):
+        low, high, result = 0, len(row) - 1, len(row)
+        while low <= high:
+            mid = (low + high) // 2
+            if row[mid] == 1:
+                result = mid
+                high = mid - 1
+            else:
+                low = mid + 1
+        return result
+
+    max_ones, row_index = -1, -1
+    for i, row in enumerate(matrix):
+        idx = first_one_index(row)
+        ones_count = len(row) - idx
+        if ones_count > max_ones:
+            max_ones = ones_count
+            row_index = i
+    return row_index
+
+matrix = [
+    [0, 0, 0, 1],
+    [0, 1, 1, 1],
+    [0, 0, 0, 0]
+]
+print(row_with_max_ones(matrix))  # Output: 1
+
+
+
+
+# 35. Painter's Partition Problem (Binary Search on Answer)
+
+# Given n boards with different lengths and k painters, each painter paints a contiguous section, and takes 1 unit time per unit length. Minimize the maximum time any painter spends.
+
+def painters_partition(boards, k):
+    def time_needed(max_len):
+        painters, current = 1, 0
+        for length in boards:
+            if current + length > max_len:
+                painters += 1
+                current = length
+            else:
+                current += length
+        return painters
+
+    low, high = max(boards), sum(boards)
+    while low < high:
+        mid = (low + high) // 2
+        if time_needed(mid) <= k:
+            high = mid
+        else:
+            low = mid + 1
+    return low
+
+print(painters_partition([10, 20, 30, 40], 2))  # Output: 60
