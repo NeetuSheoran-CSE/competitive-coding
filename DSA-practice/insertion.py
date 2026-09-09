@@ -135,3 +135,88 @@ elif i_comps < b_comps:
     print("Insertion sort made fewer comparisons")
 else:
     print("Both made the same number of comparisons")
+    
+    
+    
+    # 11. Insertion Sort on a Linked List (Conceptual + Array Simulation)
+    
+#     def insertion_sort_count_shifts(arr):
+#     shifts = 0
+#     for i in range(1, len(arr)):
+#         key = arr[i]
+#         j = i - 1
+#         while j >= 0 and arr[j] > key:
+#             arr[j + 1] = arr[j]
+#             shifts += 1
+#             j -= 1
+#         arr[j + 1] = key
+#     return shifts
+
+# arr = [5, 1, 4, 2, 8]
+# shifts = insertion_sort_count_shifts(arr)
+# print(arr, "Shifts:", shifts)  # Output: [1, 2, 4, 5, 8] Shifts: 4
+
+
+# 12. Detect if Only One Swap Away From Sorted
+
+def one_swap_away(arr):
+    sorted_arr = sorted(arr)
+    diff_indices = [i for i in range(len(arr)) if arr[i] != sorted_arr[i]]
+    if len(diff_indices) == 0:
+        return True  # already sorted
+    if len(diff_indices) == 2:
+        i, j = diff_indices
+        return arr[i] == sorted_arr[j] and arr[j] == sorted_arr[i]
+    return False
+
+print(one_swap_away([1, 5, 3, 4, 2]))  # Output: False
+print(one_swap_away([1, 4, 3, 2, 5]))  # Output: True
+
+
+# 13. Insertion Sort — Find the Position Using Binary Search
+
+def binary_search_pos(arr, key, high):
+    low = 0
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] <= key:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return low
+
+def binary_insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        pos = binary_search_pos(arr, key, i - 1)
+        j = i - 1
+        while j >= pos:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[pos] = key
+
+arr = [9, 5, 1, 4, 3]
+binary_insertion_sort(arr)
+print(arr)  # Output: [1, 3, 4, 5, 9]
+
+
+# 14. Sort Only the Odd-Indexed Elements
+
+def sort_odd_indices(arr):
+    odd_values = [arr[i] for i in range(1, len(arr), 2)]
+
+    # bubble sort the extracted odd-indexed values
+    n = len(odd_values)
+    for i in range(n):
+        for j in range(n - i - 1):
+            if odd_values[j] > odd_values[j + 1]:
+                odd_values[j], odd_values[j + 1] = odd_values[j + 1], odd_values[j]
+
+    # place sorted values back into odd indices
+    for idx, val in enumerate(odd_values):
+        arr[2 * idx + 1] = val
+
+    return arr
+
+arr = [5, 8, 3, 1, 9, 2]
+print(sort_odd_indices(arr))  # Output: [5, 1, 3, 2, 9, 8]
