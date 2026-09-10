@@ -220,3 +220,24 @@ def sort_odd_indices(arr):
 
 arr = [5, 8, 3, 1, 9, 2]
 print(sort_odd_indices(arr))  # Output: [5, 1, 3, 2, 9, 8]
+
+# 15. Insertion Sort — Sort Based on Absolute Difference from a Target
+
+def sort_odd_indices(arr):
+    odd_values = [arr[i] for i in range(1, len(arr), 2)]
+
+    # bubble sort the extracted odd-indexed values
+    n = len(odd_values)
+    for i in range(n):
+        for j in range(n - i - 1):
+            if odd_values[j] > odd_values[j + 1]:
+                odd_values[j], odd_values[j + 1] = odd_values[j + 1], odd_values[j]
+
+    # place sorted values back into odd indices
+    for idx, val in enumerate(odd_values):
+        arr[2 * idx + 1] = val
+
+    return arr
+
+arr = [5, 8, 3, 1, 9, 2]
+print(sort_odd_indices(arr))  # Output: [5, 1, 3, 2, 9, 8]
