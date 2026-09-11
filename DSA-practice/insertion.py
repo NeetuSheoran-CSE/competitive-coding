@@ -241,3 +241,82 @@ def sort_odd_indices(arr):
 
 arr = [5, 8, 3, 1, 9, 2]
 print(sort_odd_indices(arr))  # Output: [5, 1, 3, 2, 9, 8]
+
+
+
+# 6. Cocktail Shaker Sort (Bidirectional Bubble Sort)
+
+def cocktail_sort(arr):
+    n = len(arr)
+    start, end = 0, n - 1
+    swapped = True
+
+    while swapped:
+        swapped = False
+
+        # forward pass
+        for i in range(start, end):
+            if arr[i] > arr[i + 1]:
+                arr[i], arr[i + 1] = arr[i + 1], arr[i]
+                swapped = True
+        end -= 1
+
+        if not swapped:
+            break
+
+        # backward pass
+        swapped = False
+        for i in range(end, start, -1):
+            if arr[i - 1] > arr[i]:
+                arr[i - 1], arr[i] = arr[i], arr[i - 1]
+                swapped = True
+        start += 1
+
+    return arr
+
+arr = [5, 1, 4, 2, 8, 0, 2]
+print(cocktail_sort(arr))  # Output: [0, 1, 2, 2, 4, 5, 8]
+
+
+
+# 17. Insertion Sort — Count Inversions
+
+def count_inversions_insertion(arr):
+    inversions = 0
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            inversions += 1
+            j -= 1
+        arr[j + 1] = key
+    return inversions
+
+arr = [2, 4, 1, 3, 5]
+print(count_inversions_insertion(arr))  # Output: 3
+
+
+# 18. Bubble Sort with a Custom Comparator Function
+
+def bubble_sort_custom(arr, comparator):
+    n = len(arr)
+    for i in range(n):
+        for j in range(n - i - 1):
+            if comparator(arr[j], arr[j + 1]):
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+
+# ascending
+arr1 = [5, 2, 9, 1]
+bubble_sort_custom(arr1, lambda a, b: a > b)
+print(arr1)  # Output: [1, 2, 5, 9]
+
+# descending
+arr2 = [5, 2, 9, 1]
+bubble_sort_custom(arr2, lambda a, b: a < b)
+print(arr2)  # Output: [9, 5, 2, 1]
+
+# sort strings by length
+arr3 = ["kiwi", "fig", "banana"]
+bubble_sort_custom(arr3, lambda a, b: len(a) > len(b))
+print(arr3)  # Output: ['fig', 'kiwi', 'banana']
