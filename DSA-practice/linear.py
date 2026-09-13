@@ -75,3 +75,80 @@ if result != -1:
     print(f"Element found at index {result}")
 else:
     print("Element not found")
+
+
+
+arr = [10, 25, 7, 45, 32]
+
+largest = arr[0]
+
+for i in range(1, len(arr)):
+    if arr[i] > largest:
+        largest = arr[i]
+
+print("Largest element:", largest)
+
+
+
+arr = [10, 20, 30, 40, 50]
+
+arr.reverse()
+
+print("Reversed array:", arr)
+
+
+
+stack = []
+
+# Push
+stack.append(10)
+stack.append(20)
+stack.append(30)
+
+print("Stack:", stack)
+
+# Pop
+element = stack.pop()
+
+print("Deleted element:", element)
+print("Stack after pop:", stack)
+
+
+
+arr = [10, 20, 30, 40, 50]
+key = 30
+
+found = False
+
+for i in range(len(arr)):
+    if arr[i] == key:
+        print("Element found at index:", i)
+        found = True
+        break
+
+if not found:
+    print("Element not found")
+    
+
+
+arr = [10, 20, 30, 40, 50, 60, 70]
+key = 50
+
+low = 0
+high = len(arr) - 1
+
+while low <= high:
+    mid = (low + high) // 2
+
+    if arr[mid] == key:
+        print("Element found at index:", mid)
+        break
+
+    elif arr[mid] < key:
+        low = mid + 1
+
+    else:
+        high = mid - 1
+
+else:
+    print("Element not found")
