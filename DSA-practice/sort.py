@@ -539,3 +539,84 @@ def painters_partition(boards, k):
     return low
 
 print(painters_partition([10, 20, 30, 40], 2))  # Output: 60
+
+
+
+
+
+
+# 42. Trapping Rain Water
+from ast import List
+
+
+# class Solution:
+#     def trap(self, height: List[int]) -> int:
+#         n=len(height)
+#         if n ==0: return 0
+#         leftMax=[0]*n
+#         rightMax=[0]*n
+#         leftMax[0]=height[0]
+#         rightMax[n-1]=height[n-1]
+#         for i in range(1,n):
+#             leftMax[i]=max(leftMax[i-1],height[i])
+
+#         for i in range (n-2,-1,-1):
+#             rightMax[i]=max(rightMax[i+1],height[i])
+#         maxWater=0
+#         for i in range (n):
+#             maxwater += min(leftMax[i],rightMax[i]-height[i])
+#         return maxWater
+    
+    
+    
+    
+    
+    
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        left = 0
+        right = len(height)-1
+        leftMax = 0
+        rightmax = 0
+        water = 0
+        while left<= right:
+            if height[left]<=height[right]:
+                if height[left]>=leftMax:
+                    leftMax = height[left]
+                else:
+                    water+=leftMax - height[left]
+                    left += 1
+            else:
+                if height[right]>=rightMax:
+                    rightMax = height[right]
+                    right -= 1
+        return water    
+        
+        
+        
+        def binary_search(arr, target):
+    low = 0
+    high = len(arr) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return -1
+
+
+arr = [10, 20, 30, 40, 50, 60]
+target = 40
+
+result = binary_search(arr, target)
+
+if result != -1:
+    print("Element found at index:", result)
+else:
+    print("Element not found")

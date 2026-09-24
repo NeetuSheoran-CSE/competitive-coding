@@ -74,7 +74,7 @@ class Solution:
             totalHours = 0
             speed = mid
             for pile in piles:
-                totalHours += (pile+mid-1)/mid
+                totalHours += (pile+mid-1)//mid
             if totalHours <= h:
                 answer = mid
                 right = mid-1
