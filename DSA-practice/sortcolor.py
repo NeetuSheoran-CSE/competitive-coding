@@ -79,3 +79,44 @@ class Solution:
             else:
                 right -=1
         return maxWater
+    
+    
+# Search in a Rotated Sorted Array
+    
+
+def search_rotated(arr, target):
+    low = 0
+    high = len(arr) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+
+        # Target found
+        if arr[mid] == target:
+            return mid
+
+        # Check if the left half is sorted
+        if arr[low] <= arr[mid]:
+
+            # Check if target lies within the sorted left half
+            if arr[low] <= target < arr[mid]:
+                high = mid - 1
+            else:
+                low = mid + 1
+
+        else:
+            # The right half is sorted
+
+            # Check if target lies within the sorted right half
+            if arr[mid] < target <= arr[high]:
+                low = mid + 1
+            else:
+                high = mid - 1
+
+    # Target not found
+    return -1
+
+
+arr = [4, 5, 6, 7, 0, 1, 2]
+target = 0
+print(search_rotated(arr, target))  # Output: 4
