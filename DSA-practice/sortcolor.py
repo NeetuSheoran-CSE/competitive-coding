@@ -44,8 +44,9 @@ class Solution:
             else:
                 nums[mid],nums[high] = nums[high],nums[mid]
                 high-=1
-                
-                
+        return nums      
+nums = [2,0,2,1,1,0]
+print(Solution().sortColors(nums))  # Output: [0, 0, 1, 1, 2, 2]
                 
 
 # 11. Container With Most Water
