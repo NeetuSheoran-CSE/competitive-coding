@@ -47,3 +47,35 @@ class Solution:
         for ch,count in sorted_freq:
             result+=ch*count
         return result
+    
+    
+    
+    
+class Solution:
+    def twoSum(self, nums: list[int], target: int) -> list[int]:
+        seen = {}
+
+        for i in range(len(nums)):
+            complement = target - nums[i]
+
+            if complement in seen:
+                return [seen[complement], i]
+
+            seen[nums[i]] = i
+            
+            
+            
+            
+class Solution:
+    def removeDuplicates(self, nums: list[int]) -> int:
+        if not nums:
+            return 0
+
+        k = 1
+
+        for i in range(1, len(nums)):
+            if nums[i] != nums[k - 1]:
+                nums[k] = nums[i]
+                k += 1
+
+        return k
