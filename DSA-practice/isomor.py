@@ -79,3 +79,38 @@ class Solution:
                 k += 1
 
         return k
+    
+
+
+#   Best Time to Buy and Sell Stock — LeetCode #121  
+class Solution:
+    def maxProfit(self, prices: list[int]) -> int:
+        min_price = prices[0]
+        max_profit = 0
+
+        for price in prices:
+            if price < min_price:
+                min_price = price
+
+            profit = price - min_price
+
+            if profit > max_profit:
+                max_profit = profit
+
+        return max_profit
+    
+    
+
+# Contains Duplicate — LeetCode #217
+
+class Solution:
+    def containsDuplicate(self, nums: list[int]) -> bool:
+        seen = set()
+
+        for num in nums:
+            if num in seen:
+                return True
+
+            seen.add(num)
+
+        return False
